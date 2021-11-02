@@ -6,26 +6,34 @@ const isDev = require("electron-is-dev");
 let mainWindow;
 
 function createWindow() {
+    // mainWindow = new BrowserWindow({
+    //     title: 'my-electron-app',
+    //     width: 1280,
+    //     height: 720,
+    //     webPreferences: {
+    //         nodeIntegration: true,
+    //     },
+    // });
     mainWindow = new BrowserWindow({
-        title: 'my-electron-app',
-        width: 1280,
-        height: 720,
+        show: false,
         webPreferences: {
-            nodeIntegration: true,
-        },
-    });
+          nodeIntegration: true
+        }
+      });
+    mainWindow.maximize();
+    mainWindow.show();
     mainWindow.loadURL(
         isDev
             ? "http://localhost:3000"
             : `file://${path.join(__dirname, "../build/index.html")}`
     );
+    mainWindow.setMenuBarVisibility(false);
     mainWindow.on("closed", () => (mainWindow = null));
     // Open the DevTools.
     if (isDev) {
         mainWindow.webContents.openDevTools({mode: 'detach'});
     }
 }
-
 app.on("ready", createWindow);
 app.on("window-all-closed", () => {
     // On macOS it is common for applications and their menu bar
