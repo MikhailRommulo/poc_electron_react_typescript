@@ -6,22 +6,14 @@ const isDev = require("electron-is-dev");
 let mainWindow;
 
 function createWindow() {
-    // mainWindow = new BrowserWindow({
-    //     title: 'my-electron-app',
-    //     width: 1280,
-    //     height: 720,
-    //     webPreferences: {
-    //         nodeIntegration: true,
-    //     },
-    // });
     mainWindow = new BrowserWindow({
-        show: false,
+        title: 'my-electron-app',
+        fullscreen: true,
+        titleBarStyle: 'hidden',
         webPreferences: {
-          nodeIntegration: true
-        }
-      });
-    mainWindow.maximize();
-    mainWindow.show();
+            nodeIntegration: true,
+        },
+    });
     mainWindow.loadURL(
         isDev
             ? "http://localhost:3000"
